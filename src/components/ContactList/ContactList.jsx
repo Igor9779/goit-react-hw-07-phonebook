@@ -5,6 +5,7 @@ import {
   useGetContactsQuery,
   useDeleteContactMutation,
 } from '../../redux/contactsSlice';
+import Loader from "components/Loader/Loader";
 
 export const ContactList = () => {
   const filter = useSelector(getFilter);
@@ -24,7 +25,7 @@ export const ContactList = () => {
 
   return (
     <>
-      {isFetching && <p>Loading...</p>}
+      {isFetching && <Loader/>}
       {contacts && (
         <ContactListContainer>
           {filteredContacts.map(({ id, name, phone }) => {

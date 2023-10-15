@@ -9,7 +9,7 @@ export const ContactItem = styled.li`
     margin-bottom: 10px;
 `;
 
-export const ContactInfo = styled.p`
+export const ContactInfo = styled.div`
     font-size: 18px;
     margin: 0;
 `;
