@@ -1,36 +1,53 @@
-import { ContactInfo, ContactItem, ContactListContainer, DeleteButton } from "components/ContactList/ContactList.styed"
-
-import { useDispatch, useSelector } from 'react-redux';
-import { getContacts, getFilter, deleteContact } from '../../redux/slice';
+import { ContactInfo, ContactItem, ContactListContainer, DeleteButton, StyledHeading, StyledParagraph } from "components/ContactList/ContactList.styed"
+import { useSelector } from 'react-redux';
+import { getFilter } from '../../redux/filterSlice';
+import {
+  useGetContactsQuery,
+  useDeleteContactMutation,
+} from '../../redux/contactsSlice';
 
 export const ContactList = () => {
-  const dispatch = useDispatch();
-  const contacts = useSelector(getContacts);
   const filter = useSelector(getFilter);
+  const { data: contacts, isFetching } = useGetContactsQuery();
+  const [deleteContact, { isLoading }] = useDeleteContactMutation();
 
   const findContacts = () => {
     const normalizedFilter = filter.toLowerCase();
-    return contacts.filter(contact =>
-      contact.name.toLowerCase().includes(normalizedFilter)
-    );
+    if (contacts) {
+      return contacts.filter(contact =>
+        contact.name.toLowerCase().includes(normalizedFilter)
+      );
+    }
   };
 
   const filteredContacts = findContacts();
 
   return (
-    <ContactListContainer>
-      {filteredContacts.map(({ id, name, number }) => {
-        return (
-          <ContactItem key={id}>
-            <ContactInfo>
-              {name}: {number}
-            </ContactInfo>
-            <DeleteButton type="button" onClick={() => dispatch(deleteContact(id))}>
-              Delete
-            </DeleteButton>
-          </ContactItem>
-        );
-      })}
-    </ContactListContainer>
+    <>
+      {isFetching && <p>Loading...</p>}
+      {contacts && (
+        <ContactListContainer>
+          {filteredContacts.map(({ id, name, phone }) => {
+            return (
+              <ContactItem key={id}>
+                <ContactInfo>
+                  <StyledHeading>{name}:
+                    <StyledParagraph>{phone}</StyledParagraph>
+                  </StyledHeading>
+                </ContactInfo>
+                <DeleteButton
+                  type="button"
+                  onClick={() => {
+                    deleteContact(id);
+                  }}
+                >
+                  {isLoading ? '...' : 'Delete'}
+                </DeleteButton>
+              </ContactItem>
+            );
+          })}
+        </ContactListContainer>
+      )}
+    </>
   );
 };

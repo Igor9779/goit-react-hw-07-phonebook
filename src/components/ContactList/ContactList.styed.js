@@ -14,6 +14,17 @@ export const ContactInfo = styled.p`
     margin: 0;
 `;
 
+export const StyledHeading = styled.h3`
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+`;
+
+export const StyledParagraph = styled.p`
+    font-size: 16px;
+    color: #666;
+`;
+
 export const DeleteButton = styled.button`
     background-color: #ff5733;
     color: white;
