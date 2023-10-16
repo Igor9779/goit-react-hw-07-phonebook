@@ -10,8 +10,8 @@ const ContactList = () => {
   return (
     <div className="container">
       <List>
-        {visibleContacts.map(el => (
-          <ContactItem contact={el} key={Number(el.id)} />
+        {visibleContacts.map(item => (
+          <ContactItem contact={item} key={Number(item.id)} />
         ))}
       </List>
     </div>

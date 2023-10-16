@@ -2,8 +2,13 @@ import { styled } from 'styled-components';
 
 export const Container = styled.div`
   text-align: center;
-  font-size: 20px;
-  width: 400px;
-  padding: 10px;
+  max-width: 400px;
   margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+`;
+
+export const AppTitle = styled.h1`
+    font-size: 24px;
+    margin-bottom: 20px;
 `;

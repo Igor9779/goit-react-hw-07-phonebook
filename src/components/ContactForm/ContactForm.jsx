@@ -3,9 +3,8 @@ import { Form, Button, Label, Input } from './ContactForm.styled';
 import { useDispatch, useSelector } from 'react-redux';
 import { addContact } from 'redux/operations';
 import { selectContacts } from 'redux/selectors';
-import Notiflix from 'notiflix';
 
-export const ContactForm = ({ createContact }) => {
+export const ContactForm = () => {
   const dispatch = useDispatch();
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
@@ -25,9 +24,9 @@ export const ContactForm = ({ createContact }) => {
   };
 
   const handleSubmit = e => {
-    const isAlreadyExist = contactList.find(el => el.name === name);
-    if (isAlreadyExist) {
-      Notiflix.Notify.failure(`${name} is already in contacts.`);
+    const theSameContact = contactList.find(el => el.name === name);
+    if (theSameContact) {
+      alert(`${name} is already in contacts.`);
       return;
     }
     e.preventDefault();

@@ -1,18 +1,15 @@
 import { ContactForm } from './ContactForm/ContactForm';
 import Filter from './Filter/Filter';
 import ContactList from './ContactList/ContactList';
-import { Container } from './App.styled';
-import Notification from './Notification/Notification';
+import { AppTitle, Container } from './App.styled';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectContacts, selectIsLoading, selectError } from 'redux/selectors';
+import { selectIsLoading } from 'redux/selectors';
 import { useEffect } from 'react';
 import { fetchContacts } from 'redux/operations';
+import Loader from './Loader/Loader';
 
 export const App = () => {
-  const contacts = useSelector(selectContacts);
   const isLoading = useSelector(selectIsLoading);
-  const error = useSelector(selectError);
-
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchContacts());
@@ -20,15 +17,11 @@ export const App = () => {
 
   return (
     <Container>
-      <h1>Phonebook</h1>
+      <AppTitle>Phonebook</AppTitle>
       <ContactForm />
-      <h2>Contacts</h2>
-      {contacts.length > 0 ? (
+      <AppTitle>Contacts</AppTitle>
         <Filter />
-      ) : (
-        <Notification text={'Your phonebook is empty. Add first contact!'} />
-      )}
-      {isLoading && !error && <b>Request in progress...</b>}
+      {isLoading && <Loader/>}
       <ContactList />
     </Container>
   );

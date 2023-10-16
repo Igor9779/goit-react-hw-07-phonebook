@@ -7,8 +7,7 @@ export const List = styled.ul`
   width: 400px;
   padding: 12px;
   border-radius: 4px;
-  background-color: #f3cbd3;
-  border: 2px solid #bf4f74;
+  background-color: #fff;
   list-style: none;
   font-size: 20px;
 `;
